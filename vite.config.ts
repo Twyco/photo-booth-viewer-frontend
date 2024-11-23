@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src'),
       '@app': resolve(__dirname, './src/app'),
+      '@views': resolve(__dirname, './src/views'),
     }
   },
   root: '.',

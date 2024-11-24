@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '@views/home/home-view.vue';
 import Albums from '@views/album/album-view.vue';
+import Login from '@views/authentication/login-view.vue';
+import Register from '@views/authentication/register-view.vue';
 
 const routes = [
   {
@@ -17,6 +19,16 @@ const routes = [
     path: '/foto-alben',
     name: 'albums',
     component: Albums,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register,
   },
   {
     path: '/:pathMatch(.*)*',

@@ -5,18 +5,26 @@ import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
 
 export default createVuetify({
+  display: {
+    mobileBreakpoint: 'sm',
+  },
   components,
   directives,
   theme: {
     defaultTheme: 'light',
-    colors: {
-      primary: '#42b983',
-      secondary: '#35495e',
-      accent: '#9c27b0',
-      error: '#f44336',
-      info: '#2196f3',
-      success: '#4caf50',
-      warning: '#ff9800',
+    themes: {
+      light: {
+        dark: false,
+        colors: {
+          primary: "#333333",
+          secondary: "#666666",
+          accent: "#999999",
+          error: "#D32F2F",
+          info: "#1976D2",
+          success: "#388E3C",
+          warning: "#FBC02D",
+        }
+      }
     }
   }
 });

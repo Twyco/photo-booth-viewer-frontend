@@ -8,7 +8,7 @@ import AccountList from "@views/hud/menu/components/account-list.vue";
 
 const {xs, sm} = useDisplay();
 
-const drawer = ref<boolean>(true);
+const drawer = ref<boolean>(false);
 const menu = ref<boolean>(false);
 
 </script>

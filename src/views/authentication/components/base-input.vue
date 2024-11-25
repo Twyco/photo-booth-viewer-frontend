@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { defineEmits } from 'vue';
+
 defineProps({
   modelValue: String,
   label: String,
@@ -12,10 +14,12 @@ defineProps({
   error: String,
 });
 
-defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  (event: 'update:modelValue', value: string): void;
+}>();
 
-const updateValue = (event) => {
-  const value = event.target.value;
+const updateValue = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
   emit('update:modelValue', value);
 };
 

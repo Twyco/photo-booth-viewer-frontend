@@ -11,6 +11,7 @@ const {xs, sm} = useDisplay();
 const drawer = ref<boolean>(false);
 const menu = ref<boolean>(false);
 
+
 </script>
 
 <template>
@@ -38,8 +39,8 @@ const menu = ref<boolean>(false);
             v-bind="props"
           />
         </template>
-        <v-card color="primary" >
-          <account-list bg="primary" />
+        <v-card color="primary">
+          <account-list bg="primary" @closeMenu="menu = false" />
         </v-card>
       </v-menu>
     </div>

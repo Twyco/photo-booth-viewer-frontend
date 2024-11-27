@@ -16,14 +16,14 @@ const menu = ref<boolean>(false);
 
 <template>
   <v-app-bar color="primary" prominent>
-    <v-app-bar-nav-icon v-if="xs || sm" variant="text" @click.stop="drawer = !drawer" />
+    <v-app-bar-nav-icon v-if="xs || sm" variant="text" @click.stop="drawer = !drawer"/>
     <v-toolbar-title>Domes Fotobox</v-toolbar-title>
     <v-spacer/>
     <router-link v-if="!(xs || sm)" :to="{ name: 'home' }">
-      <icon-btn text="Home" icon="mdi-home" />
+      <icon-btn text="Home" icon="mdi-home"/>
     </router-link>
-    <router-link v-if="!(xs || sm)" :to="{ name: 'albums' }" >
-      <icon-btn text="Fotoalben" icon="mdi-image-multiple" />
+    <router-link v-if="!(xs || sm)" :to="{ name: 'albums' }">
+      <icon-btn text="Fotoalben" icon="mdi-image-multiple"/>
     </router-link>
     <div class="text-center">
       <v-menu
@@ -40,7 +40,7 @@ const menu = ref<boolean>(false);
           />
         </template>
         <v-card color="primary">
-          <account-list bg="primary" @closeMenu="menu = false" />
+          <account-list bg="primary" @closeMenu="menu = false"/>
         </v-card>
       </v-menu>
     </div>

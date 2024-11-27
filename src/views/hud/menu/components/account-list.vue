@@ -26,17 +26,17 @@ const computedClass = computed(() => {
   return props.bg ? `bg-${props.bg}` : '';
 });
 
-function closeMenu() : void {
+function closeMenu(): void {
   emit('closeMenu');
 }
 </script>
 
 <template>
-  <v-divider />
+  <v-divider/>
   <v-list density="compact" nav :class="computedClass"> <!-- When not logged in-->
     <a
       :href="loginURL"
-       rel="noopener noreferrer"
+      rel="noopener noreferrer"
     >
       <v-list-item prepend-icon="mdi-login" title="Anmelden" @click="closeMenu"/>
     </a>
@@ -44,12 +44,12 @@ function closeMenu() : void {
       :href="registerURL"
       rel="noopener noreferrer"
     >
-      <v-list-item prepend-icon="mdi-account-plus" title="Registrieren"  @click="closeMenu"/>
+      <v-list-item prepend-icon="mdi-account-plus" title="Registrieren" @click="closeMenu"/>
     </a>
   </v-list>
-  <v-divider />
+  <v-divider/>
   <v-list density="compact" nav :class="computedClass"> <!-- When not logged in-->
     <v-list-item prepend-icon="mdi-account" title="Account verwalten" @click="closeMenu"/>
-    <v-list-item prepend-icon="mdi-logout" title="Ausloggen" class="text-red"  @click="closeMenu"/>
+    <v-list-item prepend-icon="mdi-logout" title="Ausloggen" class="text-red" @click="closeMenu"/>
   </v-list>
 </template>

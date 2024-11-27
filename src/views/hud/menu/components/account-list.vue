@@ -17,12 +17,18 @@ const computedClass = computed(() => {
 <template>
   <v-divider />
   <v-list density="compact" nav :class="computedClass"> <!-- When not logged in-->
-    <router-link :to="{ name: 'login' }">
+    <a
+      href="https://staging.auth.bierpong.beer/login?client_id=2&redirect_uri=https://staging.fotobox.bierpong.beer&respone_type=code&scope=basic"
+       rel="noopener noreferrer"
+    >
       <v-list-item prepend-icon="mdi-login" title="Anmelden"/>
-    </router-link>
-    <router-link :to="{ name: 'register' }">
+    </a>
+    <a
+      href="https://staging.auth.bierpong.beer/signup?client_id=2&redirect_uri=https://staging.fotobox.bierpong.beer&respone_type=code&scope=basic"
+      rel="noopener noreferrer"
+    >
       <v-list-item prepend-icon="mdi-account-plus" title="Registrieren"/>
-    </router-link>
+    </a>
   </v-list>
   <v-divider />
   <v-list density="compact" nav :class="computedClass"> <!-- When not logged in-->

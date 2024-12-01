@@ -88,6 +88,7 @@ const appWidth = computed(() => {
     };
   }
 });
+
 </script>
 
 <template>

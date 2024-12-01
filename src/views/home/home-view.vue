@@ -29,20 +29,20 @@ const code = ref<string>('');
 const codeInput = ref<HTMLInputElement>();
 
 function cutInput(event: InputEvent) {
-  if (code.value.length >= 29 && event.inputType !== 'deleteContentBackward' && event.inputType !== 'deleteContentForward') {
+  console.log(event.inputType.includes('delete'));
+  if (code.value.length >= 29 && !event.inputType.includes('delete') && event.inputType !== 'insertLineBreak') {
     event.preventDefault();
   }
 }
 
 function handleInput(event: InputEvent): void {
-  //TODO deleteByCut maybe prüfen ob delete*
-  console.log(event)
+  //TODO deleteByCut maybe prüfen ob delete
   const inputElement = event.target as HTMLInputElement;
   let cursorPos = codeInput.value?.selectionStart || 0;
 
-  if (cursorPos % 6 === 0 && event.inputType !== 'deleteContentBackward' && event.inputType !== 'deleteContentForward') {
+  if (cursorPos % 6 === 0 && !event.inputType.includes('delete')) {
     cursorPos++;
-  } else if (cursorPos % 6 === 0 && cursorPos !== 0 && event.inputType !== 'deleteContentBackward' && event.inputType !== 'deleteContentForward') {
+  } else if (cursorPos % 6 === 0 && cursorPos !== 0 && !event.inputType.includes('delete')) {
     cursorPos--;
   }
 
@@ -63,6 +63,10 @@ function handleSubmit(): void {
   let cleanedCode = code.value.replace(/-/g, '');
   cleanedCode = cleanedCode.toLowerCase();
   console.log(cleanedCode);
+  if (cleanedCode.length < 25 || cleanedCode.length > 25) {
+    hasError.value = true;
+    setTimeout(() => (hasError.value = false), 500);
+  }
 }
 
 const appWidth = computed(() => {
@@ -89,6 +93,7 @@ const appWidth = computed(() => {
   }
 });
 
+const hasError = ref(false);
 </script>
 
 <template>
@@ -123,7 +128,7 @@ const appWidth = computed(() => {
         </v-timeline>
         <div class="w-full grid place-items-center">
           <v-form
-            class="border-2 border-primary p-10 rounded-xl mt-10 code-field-max-width w-full"
+            :class="`border-2 border-primary ${xs ? 'p-4' : 'p-10'} rounded-xl mt-10 code-field-max-width w-full`"
             @submit.prevent="handleSubmit"
           >
             <div class="text-3xl text-center font-bold mb-8 text-primary">
@@ -135,13 +140,17 @@ const appWidth = computed(() => {
               v-model="code"
               prepend-inner-icon="mdi-lock-outline"
               placeholder="#####-#####-#####-#####-#####"
-              label="Album Code hier eingeben"
               variant="outlined"
-              class="custom-input w-full mb-2"
+              :error="hasError"
+              :class="`custom-input w-full mb-2 font-mono ${hasError ? 'animate-shake' : ''}`"
               @beforeinput="cutInput"
               @input="handleInput"
               rounded="lg"
-            />
+            >
+              <template v-slot:label class="font-sans">
+                Album Code hier eingeben
+              </template>
+            </v-text-field>
             <v-btn
               text="Album Anzeigen"
               color="primary"

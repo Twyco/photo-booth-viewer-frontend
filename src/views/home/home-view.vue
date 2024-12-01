@@ -89,6 +89,11 @@ const appWidth = computed(() => {
       width: '60%',
       padding: '4rem 0',
     };
+  } else {
+    return {
+      width: '50%',
+      padding: '4rem 0',
+    }
   }
 });
 

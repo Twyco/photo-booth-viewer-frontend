@@ -29,7 +29,6 @@ const code = ref<string>('');
 const codeInput = ref<HTMLInputElement>();
 
 function cutInput(event: InputEvent) {
-  console.log(event.inputType.includes('delete'));
   if (code.value.length >= 29 && !event.inputType.includes('delete') && event.inputType !== 'insertLineBreak') {
     event.preventDefault();
   }

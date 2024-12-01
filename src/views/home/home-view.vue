@@ -8,42 +8,48 @@ const {xs, sm, md, lg} = useDisplay();
 
 const steps = [
   {
-    boldText: 'Code eingeben:',
-    text: 'Auf der Startseite gibst du den Code ein, den du bei der Fotobox bekommen hast. Damit kannst du das dazugehörige Album ansehen.',
+    title: 'Code eingeben:',
+    description: 'Auf der Startseite gibst du den Code ein, den du bei der Fotobox bekommen hast. ' +
+      'Damit kannst du das dazugehörige Album ansehen.',
   },
   {
-    boldText: 'Codes speichern:',
-    text: 'Wenn du nur mal reinschauen willst, geht das auch ohne Anmeldung. Aber: Wenn du dir ein Konto anlegst und dich einloggst, werden alle Codes, die du hier eingibst, automatisch in deinem Konto gespeichert. Das heißt,  du musst die nicht jedes Mal neu eingeben.',
+    title: 'Codes speichern:',
+    description: 'Wenn du nur mal reinschauen willst, geht das auch ohne Anmeldung. ' +
+      'Aber: Wenn du dir ein Konto anlegst und dich einloggst, werden alle Codes, die du hier eingibst, ' +
+      'automatisch in deinem Konto gespeichert. Das heißt,  du musst die nicht jedes Mal neu eingeben.',
   },
   {
-    boldText: 'Alle Alben im Überblick:',
-    text: 'Wenn du angemeldet bist, kannst du unter Fotoalben alle Alben sehen, dessen Codes in deinem Konto gespeichert sind.',
+    title: 'Alle Alben im Überblick:',
+    description: 'Wenn du angemeldet bist, kannst du unter Fotoalben alle Alben sehen, ' +
+      'dessen Codes in deinem Konto gespeichert sind.',
   }
 ];
 
 const code = ref<string>('');
 const codeInput = ref<HTMLInputElement>();
 
+function cutInput(event: InputEvent) {
+  if (code.value.length >= 29 && event.inputType !== 'deleteContentBackward' && event.inputType !== 'deleteContentForward') {
+    event.preventDefault();
+  }
+}
+
 function handleInput(event: InputEvent): void {
+  //TODO deleteByCut maybe prüfen ob delete*
+  console.log(event)
   const inputElement = event.target as HTMLInputElement;
   let cursorPos = codeInput.value?.selectionStart || 0;
 
-
-  if (code.value.length >= 23 && event.inputType !== 'deleteContentBackward') {
-    event.preventDefault();
-    return;
-  }
-
-  if (cursorPos % 6 === 0 && event.inputType !== 'deleteContentBackward') {
+  if (cursorPos % 6 === 0 && event.inputType !== 'deleteContentBackward' && event.inputType !== 'deleteContentForward') {
     cursorPos++;
-  } else if (cursorPos % 6 === 0 && cursorPos !== 0 && event.inputType === 'deleteContentBackward') {
+  } else if (cursorPos % 6 === 0 && cursorPos !== 0 && event.inputType !== 'deleteContentBackward' && event.inputType !== 'deleteContentForward') {
     cursorPos--;
   }
 
   let cleanedValue = code.value.replace(/[^a-zA-Z0-9]/g, '');
   cleanedValue = cleanedValue.toUpperCase();
 
-  let formattedValue = cleanedValue.slice(0, 20);
+  let formattedValue = cleanedValue.slice(0, 25);
   formattedValue = formattedValue.replace(/(.{5})(?=.)/g, '$1-');
   code.value = formattedValue;
 
@@ -60,53 +66,97 @@ function handleSubmit(): void {
 }
 
 const appWidth = computed(() => {
-  if (xs.value || sm.value) {
-    return 'w-full p-4'
+  if (xs.value) {
+    return {
+      width: '100%',
+      padding: '4rem 1rem',
+    };
+  } else if (sm.value) {
+    return {
+      width: '80%',
+      padding: '4rem 0',
+    };
   } else if (md.value) {
-    return 'w-75 p-4'
+    return {
+      width: '70%',
+      padding: '4rem 0',
+    };
   } else if (lg.value) {
-    return 'w-50 p-4'
+    return {
+      width: '60%',
+      padding: '4rem 0',
+    };
   }
 });
 </script>
 
 <template>
   <app-container>
-    <div class="w-full h-full grid place-items-center text-justify">
-      <v-row :class="appWidth" justify="center">
-        <h1 class="text-3xl font-bold mb-4">Anleitung</h1>
-        <ol class="list-decimal list-outside space-y-2 text-lg">
-          <li v-for="step in steps" class="mb-6">
-            <b>{{ step.boldText }}</b>
-            {{ step.text }}
-          </li>
-        </ol>
-      </v-row>
-      <v-form
-        @submit.prevent="handleSubmit" class="w-full"
-        :class="appWidth + ` ${ xs ? ' grid grid-cols-1 gap-2 place-items-center' : ' flex items-center space-x-2'}`"
-      >
-        <v-text-field
-          ref="codeInput"
-          type="text"
-          v-model="code"
-          prepend-inner-icon="mdi-key"
-          placeholder="XXXXX-XXXXX-XXXXX-XXXXX"
-          label="Album Code hier eingeben"
-          variant="outlined"
-          class="custom-input w-full"
-          @input="handleInput"
-        />
-        <v-btn
-          text="Album Anzeigen"
-          :class="`mb-${!xs ?'[22px]' : ''} w-48`"
-          @click="handleSubmit"
-        />
-      </v-form>
+    <div class="w-full h-full grid place-items-center text-justify text-primary">
+      <div class="text-left " :style="appWidth">
+        <h1 class="text-5xl font-bold mb-4">Wie funktioniert es?</h1>
+        <v-timeline
+          line-color="primary"
+          line-thickness="2"
+          side="end"
+          class="w-fit"
+        >
+          <v-timeline-item
+            v-for="(step, index) in steps"
+            dot-color="primary"
+            size="default"
+            fill-dot
+          >
+            <template v-slot:icon>
+              <span class="text-secondary text-xl font-bold">{{ index + 1 }}</span>
+            </template>
+            <div class="mb-2">
+              <div class="text-2xl font-bold mb-1">
+                {{ step.title }}
+              </div>
+              <p class="text-justify text-base leading-tight">
+                {{ step.description }}
+              </p>
+            </div>
+          </v-timeline-item>
+        </v-timeline>
+        <div class="w-full grid place-items-center">
+          <v-form
+            class="border-2 border-primary p-10 rounded-xl mt-10 code-field-max-width w-full"
+            @submit.prevent="handleSubmit"
+          >
+            <div class="text-3xl text-center font-bold mb-8 text-primary">
+              Hier zum Album
+            </div>
+            <v-text-field
+              ref="codeInput"
+              type="text"
+              v-model="code"
+              prepend-inner-icon="mdi-lock-outline"
+              placeholder="#####-#####-#####-#####-#####"
+              label="Album Code hier eingeben"
+              variant="outlined"
+              class="custom-input w-full mb-2"
+              @beforeinput="cutInput"
+              @input="handleInput"
+              rounded="lg"
+            />
+            <v-btn
+              text="Album Anzeigen"
+              color="primary"
+              size="large"
+              class="w-full"
+              @click="handleSubmit"
+            />
+          </v-form>
+        </div>
+      </div>
     </div>
   </app-container>
 </template>
 
 <style scoped>
-
+.code-field-max-width {
+  max-width: 30rem;
+}
 </style>

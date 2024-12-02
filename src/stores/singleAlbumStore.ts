@@ -5,7 +5,8 @@ import axiosInstance from "@app/axiosInstance";
 
 export const useSingleAlbumStore = defineStore('albumStore', {
   state: () => ({
-    data: null as Album | null,
+    album: null as Album | null,
+    images: [] as string[],
     loading: false,
     error: null as string | null,
   }),
@@ -16,8 +17,9 @@ export const useSingleAlbumStore = defineStore('albumStore', {
       this.loading = true;
       this.error = null;
       try {
-        const response: AxiosResponse<Album> = await axiosInstance.get(`/albums/${uuid}`);
-        this.data = response.data;
+        const response: AxiosResponse = await axiosInstance.get(`/albums/${uuid}/images`);
+        this.album = response.data.album;
+        this.images = response.data.images;
       } catch (error: any) {
         this.error = error.response?.data || error.message;
         console.error('Error while fetching albums', this.error);

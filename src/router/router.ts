@@ -1,7 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 
 import Home from '@views/home/home-view.vue';
 import Albums from '@views/album/album-view.vue';
+import AlbumDetail from '@views/album/detail-album-view.vue';
 
 const routes = [
   {
@@ -14,9 +15,14 @@ const routes = [
     redirect: '/',
   },
   {
-    path: '/foto-alben',
+    path: '/alben',
     name: 'albums',
     component: Albums,
+  },
+  {
+    path: '/album/:uuid',
+    name: 'album-detail',
+    component: AlbumDetail,
   },
   {
     path: '/:pathMatch(.*)*',

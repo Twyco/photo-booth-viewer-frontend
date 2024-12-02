@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import AppContainer from "@views/application/app-container.vue";
 import {useRoute} from "vue-router";
-import {onMounted, ref, type Ref} from "vue";
+import {nextTick, onMounted, ref, type Ref} from "vue";
 import type {Album} from "@/types/Album";
 import {useSingleAlbumStore} from "@/stores/singleAlbumStore";
 import {formatDate} from "@/utils/dateUtils";
+import router from "@/router/router";
 
 const route = useRoute();
 const singleAlbumStore = useSingleAlbumStore();
@@ -13,9 +14,15 @@ const albumUuid = route.params.uuid as string;
 const album: Ref<Album | null> = ref(null);
 
 onMounted(async () => {
-  await singleAlbumStore.fetchAlbum(albumUuid).then(() => {
-    album.value = singleAlbumStore.data;
-  });
+  await singleAlbumStore.fetchAlbum(albumUuid)
+    .then(() => {
+      if (singleAlbumStore.error) {
+        nextTick(() => {
+          router.push({name: 'home'});
+        })
+      }
+      album.value = singleAlbumStore.data;
+    });
 })
 
 

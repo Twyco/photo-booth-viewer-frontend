@@ -32,7 +32,6 @@ function closeMenu(): void {
 </script>
 
 <template>
-  <v-divider/>
   <v-list density="compact" nav :class="computedClass"> <!-- When not logged in-->
     <a
       :href="loginURL"

@@ -25,6 +25,7 @@ onMounted(async () => {
       }
 
       album.value = singleAlbumStore.album;
+      console.log(singleAlbumStore.images)
       images.value = singleAlbumStore.images.map((imageName) => {
         return `${import.meta.env.VITE_PHOTOBOOTH_API_URL}/albums/${album.value?.uuid}/images/${imageName}`;
       });
@@ -38,7 +39,6 @@ onMounted(async () => {
     })
   ;
 });
-
 
 </script>
 

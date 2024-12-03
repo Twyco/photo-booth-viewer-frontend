@@ -16,8 +16,8 @@ export const useAlbumCollectionStore = defineStore('albumsStore', {
       this.loading = true;
       this.error = null;
       try {
-        const response: AxiosResponse<Album[]> = await axiosInstance.get('/albums');
-        this.data = response.data;
+        const response: AxiosResponse = await axiosInstance.get('/albums');
+        this.data = Object.values(response.data);
       } catch (error: any) {
         this.error = error.response?.data || error.message;
         console.error('Error while fetching albums', this.error);

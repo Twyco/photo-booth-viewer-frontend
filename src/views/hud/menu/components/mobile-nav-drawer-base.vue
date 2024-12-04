@@ -10,9 +10,9 @@ const {xs} = useDisplay();
   <div class="absolute top-0 left-0 h-full w-full bg-primary z-20 opacity-90">
   </div>
   <div
-    :class="`absolute top-0 left-0 w-[830px] aspect-square transform
-    ${xs ? '-translate-x-[375px] -translate-y-[75px]' : '-translate-x-[250px] -translate-y-[125px]'}
-     rounded-full bg-secondary z-20 opacity-40`"
+    :class="`absolute top-0 left-0 aspect-square transform
+    ${xs ? 'w-[600px] -translate-x-[200px] -translate-y-[100px]' : 'w-[650px] -translate-x-[200px] -translate-y-[100px]'}
+     rounded-full bg-accent z-20 opacity-20`"
   >
   </div>
   <div class="absolute top-0 left-0 h-full w-full bg-transparent z-20 opacity-100">

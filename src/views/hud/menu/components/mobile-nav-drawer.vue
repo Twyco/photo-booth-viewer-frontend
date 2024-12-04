@@ -22,18 +22,18 @@ const emit = defineEmits(['update:showMobileMenu']);
         router
         @update:showMobileMenu="() =>emit('update:showMobileMenu')"
       />
-      <mobile-nav-drawer-item
-        icon="mdi-login"
-        title="Anmelden"
-        link="https://auth.staging.bierpong.beer/login"
-        @update:showMobileMenu="() =>emit('update:showMobileMenu')"
-      />
-      <mobile-nav-drawer-item
-        icon="mdi-account-plus-outline"
-        title="Registrieren"
-        link="https://auth.staging.bierpong.beer/signup"
-        @update:showMobileMenu="() =>emit('update:showMobileMenu')"
-      />
+<!--      <mobile-nav-drawer-item-->
+<!--        icon="mdi-login"-->
+<!--        title="Anmelden"-->
+<!--        link="https://auth.staging.bierpong.beer/login"-->
+<!--        @update:showMobileMenu="() =>emit('update:showMobileMenu')"-->
+<!--      />-->
+<!--      <mobile-nav-drawer-item-->
+<!--        icon="mdi-account-plus-outline"-->
+<!--        title="Registrieren"-->
+<!--        link="https://auth.staging.bierpong.beer/signup"-->
+<!--        @update:showMobileMenu="() =>emit('update:showMobileMenu')"-->
+<!--      />-->
       <mobile-nav-drawer-item
         icon="mdi-account-outline"
         title="Account"

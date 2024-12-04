@@ -72,27 +72,27 @@ const appWidth = computed(() => {
   if (xs.value) {
     return {
       width: '100%',
-      padding: '4rem 1rem',
+      padding: '2rem 1rem',
     };
   } else if (sm.value) {
     return {
       width: '80%',
-      padding: '4rem 0',
+      padding: '2rem 0',
     };
   } else if (md.value) {
     return {
       width: '70%',
-      padding: '4rem 0',
+      padding: '2rem 0',
     };
   } else if (lg.value) {
     return {
       width: '60%',
-      padding: '4rem 0',
+      padding: '2rem 0',
     };
   } else {
     return {
       width: '50%',
-      padding: '4rem 0',
+      padding: '2rem 0',
     }
   }
 });
@@ -132,7 +132,7 @@ const hasError = ref(false);
         </v-timeline>
         <div class="w-full grid place-items-center">
           <v-form
-            :class="`border-2 border-primary ${xs ? 'p-4' : 'p-10'} rounded-xl mt-10 code-field-max-width w-full`"
+            :class="`border-2 border-primary ${xs ? 'p-4' : 'p-10'} rounded-xl mt-10 w-full code-field-max-width`"
             @submit.prevent="handleSubmit"
           >
             <div class="text-3xl text-center font-bold mb-8 text-primary">

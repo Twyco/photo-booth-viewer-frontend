@@ -8,7 +8,7 @@ import MobileMenuBar from "@views/hud/menu/mobile-menu-bar.vue";
 
 const {xs, sm} = useDisplay();
 
-const showMobileMenu = ref<boolean>(true);
+const showMobileMenu = ref<boolean>(false);
 
 function toggleMobileMenu(): void {
   showMobileMenu.value = !showMobileMenu.value;

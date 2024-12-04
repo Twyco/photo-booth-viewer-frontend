@@ -35,14 +35,13 @@ const borderStyle = computed(() => {
       <v-row class="p-4 text-center bg-custom-white custom-bar-border" :style="borderStyle" align="center" no-gutters>
         <v-icon
           icon="mdi-menu"
-          :color="!modelValue ? 'primary' : 'secondary'"
+          color="primary"
           size="x-large"
           @click="() => emit('update:showMobileMenu')"
           class="z-50"
         />
         <span
-          :class="`ml-3 pt-1 text-xl uppercase font-bold text-${!modelValue ? 'primary' : 'secondary'}`"
-          class="z-50"
+          class="ml-3 pt-1 text-xl uppercase font-bold text-primary z-50"
         >
           Domes Fotobox
         </span>

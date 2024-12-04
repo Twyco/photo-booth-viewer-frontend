@@ -3,7 +3,7 @@
 import AppContainer from "@views/application/app-container.vue";
 import {onMounted, ref, type Ref} from "vue";
 import {useAlbumCollectionStore} from "@/stores/albumCollectionStore";
-import CoverTile from "@views/album/cover-tile.vue";
+import CoverTile from "@views/album/components/cover-tile.vue";
 
 const albumCollectionStore = useAlbumCollectionStore();
 const albumCovers: Ref<Record<string, string>> = ref({});

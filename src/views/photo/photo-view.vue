@@ -78,26 +78,6 @@ function closeView(): void {
   router.push({name: 'album-detail', params: {uuid: route.params.uuid, number: currentIndex.value.toString()}});
 }
 
-function shareImage(): void {
-  const shareData = {
-    title: 'Foto teilen',
-    text: 'Schau dir dieses Foto an!',
-    url: window.location.href
-  };
-
-  if (navigator.share) {
-    navigator.share(shareData)
-      .then(() => console.log('Bild erfolgreich geteilt'))
-      .catch((error) => console.error('Fehler beim Teilen:', error));
-  } else {
-    navigator.clipboard.writeText("url")
-      .then(() => alert('Link wurde in die Zwischenablage kopiert.'))
-      .catch((error) => console.error('Fehler beim Kopieren:', error));
-  }
-
-}
-
-
 const startX: Ref<number> = ref(0);
 
 function startTouch(event: any) {
@@ -116,6 +96,18 @@ function endTouch(event: any) {
     }
   }
 }
+
+
+function downloadImage() {
+  const url = images.value[currentIndex.value - 1];
+  console.log(url);
+  if (url) {
+    const link = document.createElement('a');
+    link.href = url + '/download';
+    link.click();
+  }
+}
+
 
 </script>
 
@@ -180,9 +172,9 @@ function endTouch(event: any) {
 
     <button
       class="absolute top-4 right-16 bg-white bg-opacity-50 hover:bg-opacity-70 rounded-full p-2"
-      @click="shareImage"
+      @click="downloadImage"
     >
-      <v-icon>mdi-share-variant</v-icon>
+      <v-icon>mdi-download</v-icon>
     </button>
   </div>
 </template>

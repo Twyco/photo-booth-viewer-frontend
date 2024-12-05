@@ -55,7 +55,6 @@ watch(
   }
 );
 
-
 const currentImage = computed(() => images.value[currentIndex.value - 1]);
 const previousImage = () => {
   if (currentIndex.value > 0) {
@@ -63,6 +62,7 @@ const previousImage = () => {
     updateURL();
   }
 };
+
 const nextImage = () => {
   if (currentIndex.value < images.value.length) {
     currentIndex.value += 1;
@@ -71,11 +71,11 @@ const nextImage = () => {
 };
 
 function updateURL(): void {
-  router.push({name: 'photo-detail', params: {uuid: route.params.uuid, number: currentIndex.value.toString()}});
+  router.push({name: 'photo-detail', params: {number: currentIndex.value.toString()}});
 }
 
 function closeView(): void {
-  router.push({name: 'album-detail', params: {uuid: route.params.uuid, number: currentIndex.value.toString()}});
+  router.push({name: 'album-detail'});
 }
 
 const startX: Ref<number> = ref(0);
@@ -97,7 +97,6 @@ function endTouch(event: any) {
   }
 }
 
-
 function downloadImage() {
   const url = images.value[currentIndex.value - 1];
   console.log(url);
@@ -107,7 +106,6 @@ function downloadImage() {
     link.click();
   }
 }
-
 
 </script>
 
@@ -122,7 +120,7 @@ function downloadImage() {
       :class="(xs || sm || md) ? 'w-full h-full' : 'w-3/4 h-3/4'"
     >
       <img
-        :src="images[currentIndex - 1]"
+        :src="currentImage"
         alt="Album Image"
         class="object-contain w-full h-full"
       />

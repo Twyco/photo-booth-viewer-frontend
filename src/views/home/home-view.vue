@@ -72,27 +72,23 @@ const appWidth = computed(() => {
   if (xs.value) {
     return {
       width: '100%',
-      padding: '2rem 1rem',
+      marginBottom: '5rem',
     };
   } else if (sm.value) {
     return {
       width: '80%',
-      padding: '2rem 0',
     };
   } else if (md.value) {
     return {
       width: '70%',
-      padding: '2rem 0',
     };
   } else if (lg.value) {
     return {
       width: '60%',
-      padding: '2rem 0',
     };
   } else {
     return {
       width: '50%',
-      padding: '2rem 0',
     }
   }
 });
@@ -103,7 +99,7 @@ const hasError = ref(false);
 <template>
   <app-container>
     <div class="w-full h-full grid place-items-center text-justify text-primary">
-      <div class="text-left " :style="appWidth">
+      <div class="text-left pt-4" :style="appWidth">
         <h1 class="text-5xl font-bold mb-4">Wie funktioniert es?</h1>
         <v-timeline
           line-color="primary"

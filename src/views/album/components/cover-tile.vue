@@ -2,7 +2,7 @@
 
 import {type PropType} from "vue";
 import type {Album} from "@/types/Album";
-import {formatDate} from "@/utils/dateUtils";
+import {formatDate} from "@/helpers/dateUtils";
 import {useDisplay} from "vuetify";
 
 defineProps({

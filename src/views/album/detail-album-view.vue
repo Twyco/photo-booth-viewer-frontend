@@ -4,10 +4,13 @@ import {useRoute} from "vue-router";
 import {nextTick, onMounted, ref, type Ref} from "vue";
 import type {Album} from "@/types/Album";
 import {useSingleAlbumStore} from "@/stores/singleAlbumStore";
-import {formatDate} from "@/utils/dateUtils";
 import router from "@/router/router";
+import {useDisplay} from "vuetify";
+import DetailAlbumHeader from "@views/album/components/detail-album-header.vue";
 
 const route = useRoute();
+
+const {xs, sm, md, lg} = useDisplay();
 const singleAlbumStore = useSingleAlbumStore();
 
 const albumUuid = route.params.uuid as string;
@@ -43,22 +46,40 @@ onMounted(async () => {
 
 <template>
   <app-container>
-    <div v-if="album" class="grid grid-cols-2 gap-4 w-fit">
-      <span>Name:</span>
-      <span>{{ album.name }}</span>
-      <span>Beschreibung:</span>
-      <span>{{ album.description }}</span>
-      <span>Event-Datum: </span>
-      <span>{{ formatDate(album.event_date) }}</span>
-    </div>
-    <div v-if="images" class="grid grid-cols-1 gap-4 w-fit">
-      <div v-for="(image, index) in images" :key="index">
-        <img :src="image" alt="Album Image"/>
+    <div class="w-full h-full grid place-items-center text-justify text-primary">
+      <div :class="`text-left w-full ${(xs || sm)? 'mb-20' : 'pt-4'}`">
+        <detail-album-header v-if="album" :album="album" />
+        <template>
+          <div class="container mx-auto py-8">
+            <h1 class="text-2xl font-bold text-center mb-6">Fotoalbum XYZ</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div
+                v-for="(src, index) in images"
+                :key="index"
+                class="relative w-full pt-[150%] bg-gray-100 overflow-hidden rounded-lg"
+              >
+                <img
+                  :src="src"
+                  alt="Foto"
+                  class="absolute inset-0 object-cover w-full h-full"
+                />
+              </div>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
-    <div v-else>
-      <p>Loading...</p>
-    </div>
+    <!--    <div v-if="album" class="w-full bg-red">-->
+    <!--      <-->
+    <!--    </div>-->
+    <!--    <div v-if="images" class="grid grid-cols-1 gap-4 w-fit">-->
+    <!--      <div v-for="(image, index) in images" :key="index">-->
+    <!--        <img :src="image" alt="Album Image"/>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    <div v-else>-->
+    <!--      <p>Loading...</p>-->
+    <!--    </div>-->
   </app-container>
 </template>
 

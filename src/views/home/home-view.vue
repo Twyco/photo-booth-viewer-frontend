@@ -2,7 +2,12 @@
 
 import AppContainer from "@views/application/app-container.vue";
 import {useDisplay} from "vuetify";
-import {computed, nextTick, ref} from "vue";
+import {computed, nextTick, type Ref, ref} from "vue";
+import type {AxiosResponse} from "axios";
+import axiosInstance from "@app/axiosInstance";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const {xs, sm, md, lg} = useDisplay();
 
@@ -58,14 +63,31 @@ function handleInput(event: InputEvent): void {
   });
 }
 
-function handleSubmit(): void {
+const loading: Ref<boolean> = ref(false);
+
+async function handleSubmit(): Promise<void> {
+  loading.value = true;
   let cleanedCode = code.value.replace(/-/g, '');
   cleanedCode = cleanedCode.toLowerCase();
-  console.log(cleanedCode);
   if (cleanedCode.length < 25 || cleanedCode.length > 25) {
     hasError.value = true;
-    setTimeout(() => (hasError.value = false), 500);
+    setTimeout(() => (hasError.value = false), 3000);
+    loading.value = false;
+    return
   }
+
+  try {
+    const response: AxiosResponse = await axiosInstance.get(`/access/${cleanedCode}`);
+    await router.push({name: 'album-detail', params: {uuid: response.data.album.uuid}});
+  } catch (error: any) {
+    hasError.value = true;
+    setTimeout(() => (hasError.value = false), 3000);
+    error = error.response?.data || '';
+    console.error('Error while fetching accesscode', error);
+  } finally {
+    loading.value = false;
+  }
+
 }
 
 const appWidth = computed(() => {
@@ -130,6 +152,7 @@ const hasError = ref(false);
           <v-form
             :class="`border-2 border-primary ${xs ? 'p-4' : 'p-10'} rounded-xl mt-10 w-full code-field-max-width`"
             @submit.prevent="handleSubmit"
+            :disabled="loading"
           >
             <div class="text-3xl text-center font-bold mb-8 text-primary">
               Hier zum Album
@@ -157,6 +180,7 @@ const hasError = ref(false);
               size="large"
               class="w-full"
               @click="handleSubmit"
+              :disabled="loading"
             />
           </v-form>
         </div>

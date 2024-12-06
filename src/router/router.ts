@@ -4,6 +4,9 @@ import Home from '@views/home/home-view.vue';
 import Albums from '@views/album/album-view.vue';
 import AlbumDetail from '@views/album/detail-album-view.vue';
 import PhotoView from '@views/photo/photo-view.vue';
+import Login from '@views/authentication/login-view.vue';
+import SignUp from '@views/authentication/sign-up-view.vue';
+import passwordReset from '@views/authentication/password-reset-view.vue';
 
 const routes = [
   {
@@ -29,6 +32,21 @@ const routes = [
     path: '/album/:uuid/foto/:number',
     name: 'photo-detail',
     component: PhotoView,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignUp,
+  },
+  {
+    path: '/resetPassword',
+    name: 'pwReset',
+    component: passwordReset,
   },
   {
     path: '/:pathMatch(.*)*',
